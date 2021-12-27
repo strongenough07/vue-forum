@@ -1,27 +1,17 @@
 <template>
   <div class="container">
-    <PageHome />
+    <router-view />
   </div>
 </template>
 
 <script>
-import PageHome from "./components/PageHome.vue";
-
 export default {
   name: "App",
-  components: {
-    PageHome,
-  },
+  components: {},
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "assets/style.css";
+@import "../bootstrap/css/bootstrap.css";
 </style>
