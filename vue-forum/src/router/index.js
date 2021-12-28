@@ -1,4 +1,3 @@
-
 import PageHome from '@/components/PageHome'
 import PageThreadShow from '@/components/PageThreadShow'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -11,7 +10,7 @@ const routes = [
   },
   {
     path: '/thread/:id',
-    name: 'ThreadPage',
+    name: 'ThreadShow',
     component: PageThreadShow,
     props: true
   }
