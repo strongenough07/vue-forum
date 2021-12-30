@@ -34,6 +34,7 @@
 import sourceData from "@/data.json";
 
 export default {
+  name: "PostList",
   data() {
     return {
       users: sourceData.users,
