@@ -3,6 +3,7 @@ import ThreadShow from "@/pages/ThreadShow";
 import { createRouter, createWebHistory } from "vue-router";
 import NotFound from "@/pages/NotFound";
 import sourceData from "@/data.json";
+import Forum from "@/pages/Forum";
 
 const routes = [
   {
@@ -32,6 +33,7 @@ const routes = [
     },
   },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
+  { path: "/forum/:id", name: "Forum", component: Forum, props: true },
 ];
 
 export default createRouter({
