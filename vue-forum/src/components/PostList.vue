@@ -32,12 +32,10 @@
 
 <script>
 import sourceData from "@/data.json";
-import AppDate from "@/components/AppDate";
+
 export default {
   name: "PostList",
-  components: {
-    AppDate,
-  },
+
   data() {
     return {
       users: sourceData.users,
