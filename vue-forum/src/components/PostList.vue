@@ -31,16 +31,8 @@
 </template>
 
 <script>
-import sourceData from "@/data.json";
-
 export default {
   name: "PostList",
-
-  data() {
-    return {
-      users: sourceData.users,
-    };
-  },
   props: {
     posts: {
       type: Array,
@@ -48,6 +40,12 @@ export default {
       required: true,
     },
   },
+  computed: {
+    users() {
+      return this.$store.state.users;
+    },
+  },
+
   methods: {
     userById(userId) {
       return this.users.find((p) => p.id === userId);
