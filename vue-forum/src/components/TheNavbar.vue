@@ -18,14 +18,14 @@
           <a href="#">
             <img
               class="avatar-small"
-              src="https://pbs.twimg.com/profile_images/881260299420041217/GMVGlDea_400x400.jpg"
-              alt=""
+              :src="authUser.avatar"
+              :alt="`${authUser.name} profile picture`"
             />
             <span>
-              Alex Kyriakidis
+              {{ authUser.name }}
               <img
                 class="icon-profile"
-                src="assets/img/svg/arrow-profile.svg"
+                src="../assets/svg/arrow-profile.svg"
                 alt=""
               />
             </span>
@@ -67,9 +67,13 @@
           <a href="#">Logout</a>
         </li> -->
 </template>
-
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["authUser"]),
+  },
+};
 </script>
 
 <style>
