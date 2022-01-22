@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import sourceData from "@/data";
 
 export default createStore({
-  state: { ...sourceData, authId: "f5xvKdIPQdSrUtT6i3UiHYttRXO2" },
+  state: { ...sourceData, authId: "rpbB8C6ifrYmNDufMERWfQUoa202" },
   getters: {
     authUser: (state) => state.users.find((user) => user.id === state.authId),
   },
