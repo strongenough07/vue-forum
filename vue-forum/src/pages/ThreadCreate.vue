@@ -41,9 +41,16 @@
 <script>
 export default {
   props: {
-    form: {
-      type: Object,
+    forumId: {
+      type: String,
       required: true,
+    },
+  },
+  computed: {
+    forum() {
+      return this.$store.state.forums.find(
+        (forum) => forum.id === this.forumId
+      );
     },
   },
   data() {

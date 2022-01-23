@@ -59,7 +59,7 @@ export default createStore({
     setPost(state, { post }) {
       state.posts.push(post);
     },
-    setThreads(state, { thread }) {
+    setThread(state, { thread }) {
       state.threads.push(thread);
     },
     setUser(state, { user, userId }) {
@@ -72,12 +72,12 @@ export default createStore({
       thread.posts.push(postId);
     },
     appendThreadToForum(state, { forumId, threadId }) {
-      const forum = state.threads.find((forum) => forum.id === forumId);
+      const forum = state.forums.find((forum) => forum.id === forumId);
       forum.threads = forum.threads || [];
       forum.threads.push(threadId);
     },
     appendThreadToUser(state, { userId, threadId }) {
-      const user = state.threads.find((user) => user.id === userId);
+      const user = state.users.find((user) => user.id === userId);
       user.threads = user.threads || [];
       user.threads.push(threadId);
     },
