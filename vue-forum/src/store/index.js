@@ -24,6 +24,23 @@ export default createStore({
         },
       };
     },
+    thread: (state) => {
+      return (id) => {
+        const thread = findById(state.threads, id);
+        return {
+          ...thread,
+          get author() {
+            return findById(state.users, thread.userId);
+          },
+          get repliesCount() {
+            return thread.posts.length - 1;
+          },
+          get contributorsCount() {
+            return thread.contributors.length;
+          },
+        };
+      };
+    },
   },
   actions: {
     createPost({ commit, state }, post) {
@@ -33,6 +50,10 @@ export default createStore({
         commit("setPost", { post });
       commit("appendPostToThread", {
         childId: post.id,
+        parentId: post.threadId,
+      });
+      commit("appendContributorToThread", {
+        childId: state.authId,
         parentId: post.threadId,
       });
     },
@@ -89,6 +110,10 @@ export default createStore({
       parent: "users",
       child: "threads",
     }),
+    appendContributorToThread: makeAppendChildToParentMutation({
+      parent: "threads",
+      child: "contributors",
+    }),
   },
 });
 
@@ -96,6 +121,8 @@ function makeAppendChildToParentMutation({ parent, child }) {
   return (state, { childId, parentId }) => {
     const resource = findById(state[parent], parentId);
     resource[child] = resource[child] || [];
-    resource[child].push(childId);
+    if (!resource[child].includes(childId)) {
+      resource[child].push(childId);
+    }
   };
 }
