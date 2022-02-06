@@ -11,6 +11,7 @@ const app = initializeApp(firebaseConfig);
 const forumApp = createApp(App);
 forumApp.use(router);
 forumApp.use(store);
+forumApp.use(app);
 
 const requireComponent = require.context(
   "./components",
