@@ -9,25 +9,24 @@
 </template>
 
 <script>
-import ForumList from "@/components/ForumList.vue";
+import ForumList from '@/components/ForumList'
 
 export default {
   components: { ForumList },
   props: {
     categories: {
       required: true,
-      type: Array,
-    },
+      type: Array
+    }
   },
   methods: {
-    getForumsForCategory(category) {
-      return this.$store.state.forums.filter(
-        (forum) => forum.categoryId === category.id
-      );
-    },
-  },
-};
+    getForumsForCategory (category) {
+      return this.$store.state.forums.filter(forum => forum.categoryId === category.id)
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped>
+
 </style>

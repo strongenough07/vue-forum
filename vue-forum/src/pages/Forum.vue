@@ -6,42 +6,41 @@
         <p class="text-lead">{{ forum.description }}</p>
       </div>
       <router-link
-        :to="{ name: 'ThreadCreate', params: { forumId: forum.id } }"
+        :to="{name:'ThreadCreate', params: {forumId: forum.id}}"
         class="btn-green btn-small"
-        >Start a thread</router-link
       >
+        Start a thread
+      </router-link>
     </div>
   </div>
 
   <div class="col-full push-top">
-    <ThreadList :threads="threads" />
+    <ThreadList :threads="threads"/>
   </div>
 </template>
 
 <script>
-import ThreadList from "@/components/ThreadList";
+import ThreadList from '@/components/ThreadList'
+import { findById } from '@/helpers'
 export default {
-  components: {
-    ThreadList,
-  },
+  components: { ThreadList },
   props: {
     id: {
       required: true,
-      type: String,
-    },
+      type: String
+    }
   },
   computed: {
-    forum() {
-      return this.$store.state.forums.find((forum) => forum.id === this.id);
+    forum () {
+      return findById(this.$store.state.forums, this.id)
     },
-    threads() {
-      return this.forum.threads.map((threadId) =>
-        this.$store.getters.thread(threadId)
-      );
-    },
-  },
-};
+    threads () {
+      return this.forum.threads.map(threadId => this.$store.getters.thread(threadId))
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped>
+
 </style>

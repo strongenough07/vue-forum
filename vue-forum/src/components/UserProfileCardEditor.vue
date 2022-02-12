@@ -84,30 +84,25 @@
 
 <script>
 export default {
-  data() {
-    return {
-      activeUser: {
-        ...this.user,
-      },
-    };
-  },
   props: {
     user: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
+  },
+  data () {
+    return {
+      activeUser: { ...this.user }
+    }
   },
   methods: {
-    save() {
-      this.$store.dispatch("updateUser", { ...this.activeUser });
-      this.$router.push({ name: "Profile" });
+    save () {
+      this.$store.dispatch('updateUser', { ...this.activeUser })
+      this.$router.push({ name: 'Profile' })
     },
-    cancel() {
-      this.$router.push({ name: "Profile" });
-    },
-  },
-};
+    cancel () {
+      this.$router.push({ name: 'Profile' })
+    }
+  }
+}
 </script>
-
-<style>
-</style>

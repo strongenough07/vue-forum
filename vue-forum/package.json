@@ -8,9 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "chokidar": "^3.5.3",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
-    "firebase": "^9.6.6",
+    "firebase": "8.4.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
@@ -19,7 +20,7 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "firestore-export-import": "^0.17.0"
+    "firestore-export-import": "0.14.0"
   },
   "browserslist": [
     "> 1%",

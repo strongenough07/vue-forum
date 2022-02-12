@@ -1,33 +1,37 @@
 <template>
   <h1>{{ category.name }}</h1>
-  <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
+  <ForumList
+    :title="category.name"
+    :forums="getForumsForCategory(category)"
+  />
 </template>
 
 <script>
-import ForumList from "@/components/ForumList.vue";
-import sourceData from "@/data.json";
+import ForumList from '@/components/ForumList'
+import { findById } from '@/helpers'
 export default {
-  components: { ForumList },
+  components: {
+    ForumList
+  },
   props: {
     id: {
       required: true,
-      type: String,
-    },
+      type: String
+    }
   },
   computed: {
-    category() {
-      return sourceData.categories.find((category) => category.id === this.id);
-    },
+    category () {
+      return findById(this.$store.state.categories, this.id)
+    }
   },
   methods: {
-    getForumsForCategory(category) {
-      return sourceData.forums.filter(
-        (forum) => forum.categoryId === category.id
-      );
-    },
-  },
-};
+    getForumsForCategory (category) {
+      return this.$store.state.forums.filter(forum => forum.categoryId === category.id)
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped>
+
 </style>

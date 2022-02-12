@@ -2,15 +2,7 @@
   <div class="col-full">
     <form @submit.prevent="save">
       <div class="form-group">
-        <textarea
-          v-model="text"
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="form-input"
-        >
-        </textarea>
+        <textarea v-model="text" name="" id="" cols="30" rows="10" class="form-input"/>
       </div>
       <div class="form-actions">
         <button class="btn-blue">Submit post</button>
@@ -21,23 +13,24 @@
 
 <script>
 export default {
-  name: "PostEditor",
-  data() {
+  data () {
     return {
-      text: "",
-    };
+      text: ''
+    }
   },
   methods: {
-    save() {
+    save () {
       const post = {
-        text: this.text,
-      };
-      this.$emit("save", { post });
-      this.text = "";
-    },
-  },
-};
+        text: this.text
+      }
+      this.$emit('save', { post }) // access under eventData.post
+
+      this.text = ''
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped>
+
 </style>

@@ -24,9 +24,9 @@
     </div>
 
     <div class="btn-group">
-      <button @click="$emit('cancel')" class="btn btn-ghost">Cancel</button>
+      <button @click.prevent="$emit('cancel')" class="btn btn-ghost">Cancel</button>
       <button class="btn btn-blue" type="submit" name="Publish">
-        {{ existing ? "Update" : "Publish" }}
+        {{existing ? 'Update' : 'Publish'}}
       </button>
     </div>
   </form>
@@ -35,29 +35,26 @@
 <script>
 export default {
   props: {
-    title: { type: String, default: "" },
-    text: { type: String, default: "" },
+    title: { type: String, default: '' },
+    text: { type: String, default: '' }
   },
-  data() {
+  data () {
     return {
       form: {
         title: this.title,
-        text: this.text,
-      },
-    };
+        text: this.text
+      }
+    }
   },
   computed: {
-    existing() {
-      return !!this.title;
-    },
+    existing () {
+      return !!this.title
+    }
   },
   methods: {
-    save() {
-      this.$emit("save", { ...this.form });
-    },
-  },
-};
+    save () {
+      this.$emit('save', { ...this.form })
+    }
+  }
+}
 </script>
-
-<style>
-</style>
