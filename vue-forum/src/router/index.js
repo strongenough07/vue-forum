@@ -1,48 +1,49 @@
-import Home from '@/pages/Home'
-import ThreadShow from '@/pages/ThreadShow'
-import ThreadCreate from '@/pages/ThreadCreate'
-import ThreadEdit from '@/pages/ThreadEdit'
-import NotFound from '@/pages/NotFound'
-import Forum from '@/pages/Forum'
-import Category from '@/pages/Category'
-import { createRouter, createWebHistory } from 'vue-router'
-import sourceData from '@/data.json'
-import Profile from '@/pages/Profile'
-import { findById } from '@/helpers'
-import store from '@/store'
+import Home from "@/pages/Home";
+import ThreadShow from "@/pages/ThreadShow";
+import ThreadCreate from "@/pages/ThreadCreate";
+import ThreadEdit from "@/pages/ThreadEdit";
+import NotFound from "@/pages/NotFound";
+import Forum from "@/pages/Forum";
+import Register from "@/pages/Register";
+import Category from "@/pages/Category";
+import { createRouter, createWebHistory } from "vue-router";
+import sourceData from "@/data.json";
+import Profile from "@/pages/Profile";
+import { findById } from "@/helpers";
+import store from "@/store";
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     component: Home
   },
   {
-    path: '/me',
-    name: 'Profile',
+    path: "/me",
+    name: "Profile",
     component: Profile,
     meta: { toTop: true, smoothScroll: true }
   },
   {
-    path: '/me/edit',
-    name: 'ProfileEdit',
+    path: "/me/edit",
+    name: "ProfileEdit",
     component: Profile,
     props: { edit: true }
   },
   {
-    path: '/category/:id',
-    name: 'Category',
+    path: "/category/:id",
+    name: "Category",
     component: Category,
     props: true
   },
   {
-    path: '/forum/:id',
-    name: 'Forum',
+    path: "/forum/:id",
+    name: "Forum",
     component: Forum,
     props: true
   },
   {
-    path: '/thread/:id',
-    name: 'ThreadShow',
+    path: "/thread/:id",
+    name: "ThreadShow",
     component: ThreadShow,
     props: true
     // beforeEnter (to, from, next) {
@@ -64,35 +65,40 @@ const routes = [
     // }
   },
   {
-    path: '/forum/:forumId/thread/create',
-    name: 'ThreadCreate',
+    path: "/forum/:forumId/thread/create",
+    name: "ThreadCreate",
     component: ThreadCreate,
     props: true
   },
   {
-    path: '/thread/:id/edit',
-    name: 'ThreadEdit',
+    path: "/thread/:id/edit",
+    name: "ThreadEdit",
     component: ThreadEdit,
     props: true
   },
   {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
+    path: "/register",
+    name: "Register",
+    component: Register
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
     component: NotFound
   }
-]
+];
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior (to) {
-    const scroll = {}
-    if (to.meta.toTop) scroll.top = 0
-    if (to.meta.smoothScroll) scroll.behavior = 'smooth'
-    return scroll
+  scrollBehavior(to) {
+    const scroll = {};
+    if (to.meta.toTop) scroll.top = 0;
+    if (to.meta.smoothScroll) scroll.behavior = "smooth";
+    return scroll;
   }
-})
+});
 router.beforeEach(() => {
-  store.dispatch('unsubscribeAllSnapshots')
-})
+  store.dispatch("unsubscribeAllSnapshots");
+});
 
-export default router
+export default router;
