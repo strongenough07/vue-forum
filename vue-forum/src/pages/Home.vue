@@ -1,39 +1,32 @@
 <template>
-  <h1 class="push-top">Welcome to the Forum</h1>
-  <CategoryList :categories="categories" />
+  <div v-if="asyncDataStatus_ready" class="container">
+    <h1 class="push-top">Welcome to the Forum</h1>
+    <CategoryList :categories="categories" />
+  </div>
 </template>
 
 <script>
-import CategoryList from "@/components/CategoryList";
+import CategoryList from '@/components/CategoryList'
+import { mapActions } from 'vuex'
+import asynDataStatus from '@/mixins/asyncDataStatus'
 export default {
   components: {
-    CategoryList,
+    CategoryList
   },
+  mixins: [asynDataStatus],
   computed: {
-    categories() {
-      return this.$store.state.categories;
-    },
+    categories () {
+      return this.$store.state.categories
+    }
   },
-  async beforeCreate() {
-    const categories = await this.$store.dispatch("fetchAllCategories");
-    const forumIds = categories.map((category) => category.forums).flat();
-    this.$store.dispatch("fetchForums", { ids: forumIds });
-    console.log("before create", this.categories);
+  methods: {
+    ...mapActions(['fetchAllCategories', 'fetchForums'])
   },
-  created() {
-    console.log("created", this.categories);
-  },
-  beforeMount() {
-    console.log("beforeMount", this.categories);
-  },
-  mounted() {
-    console.log("mounted", this.categories, this.$el);
-  },
-  beforeUnmount() {
-    console.log("beforeUnmount", this.categories, this.$el);
-  },
-  unmounted() {
-    console.log("unmounted", this.categories);
-  },
-};
+  async created () {
+    const categories = await this.fetchAllCategories()
+    const forumIds = categories.map(category => category.forums).flat()
+    await this.fetchForums({ ids: forumIds })
+    this.asyncDataStatus_fetched()
+  }
+}
 </script>

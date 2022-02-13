@@ -9,7 +9,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import sourceData from '@/data.json'
 import Profile from '@/pages/Profile'
 import { findById } from '@/helpers'
-import store from '@/store'
 const routes = [
   {
     path: '/',
@@ -44,24 +43,24 @@ const routes = [
     path: '/thread/:id',
     name: 'ThreadShow',
     component: ThreadShow,
-    props: true
-    // beforeEnter (to, from, next) {
-    //   // check if thread exists
-    //   const threadExists = findById(sourceData.threads, to.params.id)
-    //   // if exists continue
-    //   if (threadExists) {
-    //     return next()
-    //   } else {
-    //     next({
-    //       name: 'NotFound',
-    //       params: { pathMatch: to.path.substring(1).split('/') },
-    //       // preserve existing query and hash
-    //       query: to.query,
-    //       hash: to.hash
-    //     })
-    //   }
-    //   // if doesnt exist redirect to not found
-    // }
+    props: true,
+    beforeEnter (to, from, next) {
+      // check if thread exists
+      const threadExists = findById(sourceData.threads, to.params.id)
+      // if exists continue
+      if (threadExists) {
+        return next()
+      } else {
+        next({
+          name: 'NotFound',
+          params: { pathMatch: to.path.substring(1).split('/') },
+          // preserve existing query and hash
+          query: to.query,
+          hash: to.hash
+        })
+      }
+      // if doesnt exist redirect to not found
+    }
   },
   {
     path: '/forum/:forumId/thread/create',
@@ -81,7 +80,8 @@ const routes = [
     component: NotFound
   }
 ]
-const router = createRouter({
+
+export default createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior (to) {
@@ -91,8 +91,3 @@ const router = createRouter({
     return scroll
   }
 })
-router.beforeEach(() => {
-  store.dispatch('unsubscribeAllSnapshots')
-})
-
-export default router

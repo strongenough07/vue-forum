@@ -6,11 +6,7 @@
 </template>
 
 <script>
-export default {
-  created () {
-    this.$emit('ready')
-  }
-}
+export default {}
 </script>
 
 <style scoped>

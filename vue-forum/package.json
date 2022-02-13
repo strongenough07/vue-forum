@@ -1,5 +1,5 @@
 {
-  "name": "vue-forum",
+  "name": "vueschool-forum",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,19 +8,23 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "chokidar": "^3.5.3",
+      "chokidar": "^3.5.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-3",
     "core-js": "^3.6.5",
-    "dayjs": "^1.10.7",
-    "firebase": "8.4.1",
+    "dayjs": "^1.10.4",
+    "firebase": "^8.4.1",
+    "nprogress": "^0.2.0",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "firestore-export-import": "0.14.0"
+    "firestore-export-import": "^0.14.0"
   },
   "browserslist": [
     "> 1%",
@@ -28,3 +32,7 @@
     "not dead"
   ]
 }
+
+
+
+
