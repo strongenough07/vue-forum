@@ -5,6 +5,7 @@ import ThreadEdit from "@/pages/ThreadEdit";
 import NotFound from "@/pages/NotFound";
 import Forum from "@/pages/Forum";
 import Register from "@/pages/Register";
+import SingIn from "@/pages/SingIn";
 import Category from "@/pages/Category";
 import { createRouter, createWebHistory } from "vue-router";
 import sourceData from "@/data.json";
@@ -80,6 +81,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register
+  },
+  {
+    path: "/singin",
+    name: "SingIn",
+    component: SingIn
   },
   {
     path: "/:pathMatch(.*)*",

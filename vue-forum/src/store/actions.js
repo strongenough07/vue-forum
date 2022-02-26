@@ -133,6 +133,13 @@ export default {
     });
    
   },
+  signInWithEmailAndPassword(context, {email, password}) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  },
+  async signOut({ commit}) {
+    await firebase.auth().signOut
+    commit('setAuthId', null);
+  },
   async createUser({ commit }, { id, email, name, username, avatar = null }) {
     const registeredAt = firebase.firestore.FieldValue.serverTimestamp();
     const usernameLower = username.toLowerCase();
