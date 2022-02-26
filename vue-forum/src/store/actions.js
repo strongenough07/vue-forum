@@ -131,6 +131,7 @@ export default {
       username,
       avatar
     });
+   
   },
   async createUser({ commit }, { id, email, name, username, avatar = null }) {
     const registeredAt = firebase.firestore.FieldValue.serverTimestamp();
@@ -162,8 +163,13 @@ export default {
     dispatch("fetchItem", { emoji: "💬", resource: "posts", id }),
   fetchUser: ({ dispatch }, { id }) =>
     dispatch("fetchItem", { emoji: "🙋", resource: "users", id }),
-  fetchAuthUser: ({ dispatch, state }) =>
-    dispatch("fetchItem", { emoji: "🙋", resource: "users", id: state.authId }),
+  fetchAuthUser: ({ dispatch, state , commit}) =>
+    {
+      const userId = firebase.auth().currentUser?.uid
+      if(!userId) return
+      dispatch("fetchItem", { emoji: "🙋", resource: "users", id: state.authId })
+      commit("setAuthId", userId)
+    },
   // ---------------------------------------
   // Fetch All of a Resource
   // ---------------------------------------
