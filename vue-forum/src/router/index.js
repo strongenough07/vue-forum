@@ -5,7 +5,7 @@ import ThreadEdit from "@/pages/ThreadEdit";
 import NotFound from "@/pages/NotFound";
 import Forum from "@/pages/Forum";
 import Register from "@/pages/Register";
-import SingIn from "@/pages/SingIn";
+import SignIn from "@/pages/SignIn";
 import Category from "@/pages/Category";
 import { createRouter, createWebHistory } from "vue-router";
 import sourceData from "@/data.json";
@@ -22,7 +22,14 @@ const routes = [
     path: "/me",
     name: "Profile",
     component: Profile,
-    meta: { toTop: true, smoothScroll: true }
+    meta: { toTop: true, smoothScroll: true },
+    beforeEnter(to, from) {
+      if (!store.state.authId)
+        return {
+          name: "Home"
+        };
+    },
+  
   },
   {
     path: "/me/edit",
@@ -83,9 +90,17 @@ const routes = [
     component: Register
   },
   {
-    path: "/singin",
-    name: "SingIn",
-    component: SingIn
+    path: "/signin",
+    name: "SignIn",
+    component: SignIn
+  },
+  {
+    path: "/logout",
+    name: 'SignOut',
+   async beforeEnter(to, from){
+      await store.dispatch('signOut')
+      return { name: 'Home'}
+    }
   },
   {
     path: "/:pathMatch(.*)*",

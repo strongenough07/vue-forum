@@ -23,7 +23,7 @@
 // import UserProfileCard from "@/components/UserProfileCard";
 // import UserProfileCardEditor from "@/components/UserProfileCardEditor";
 import { mapGetters } from "vuex";
-import store from "@/store";
+
 export default {
   // components: { PostList, UserProfileCard, UserProfileCardEditor },
   props: {
@@ -32,14 +32,7 @@ export default {
   computed: {
     ...mapGetters({ user: "authUser" })
   },
-  beforeRouteEnter(to, from) {
-    if (!store.state.authId)
-      return {
-        name: "Home"
-      };
-  },
-  beforeRouteUpdate() {},
-  beforeRouteLeave() {},
+
   created() {
     this.$emit("ready");
   }
