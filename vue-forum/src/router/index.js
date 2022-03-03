@@ -29,7 +29,7 @@ const routes = [
     name: "ProfileEdit",
     component: Profile,
     props: { edit: true },
-    
+    meta: {requiresAuth: true}
   },
   {
     path: "/category/:id",
@@ -72,13 +72,15 @@ const routes = [
     path: "/forum/:forumId/thread/create",
     name: "ThreadCreate",
     component: ThreadCreate,
-    props: true
+    props: true,
+    meta: {requiresAuth: true}
   },
   {
     path: "/thread/:id/edit",
     name: "ThreadEdit",
     component: ThreadEdit,
-    props: true
+    props: true,
+    meta: {requiresAuth: true}
   },
   {
     path: "/register",
