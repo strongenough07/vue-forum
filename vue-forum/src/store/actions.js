@@ -1,6 +1,7 @@
 import firebase from 'firebase'
-
+import { findById, docToResource } from '@/helpers'
 export default {
+
   fetchItem ({ state, commit }, { id, emoji, resource, handleUnsubscribe = null }) {
     console.log('🔥', emoji, id)
     return new Promise((resolve) => {
@@ -16,7 +17,6 @@ export default {
       if (handleUnsubscribe) {
         handleUnsubscribe(unsubscribe)
       } else {
-
         commit('appendUnsubscribe', { unsubscribe })
       }
     })
@@ -27,6 +27,5 @@ export default {
   async unsubscribeAllSnapshots ({ state, commit }) {
     state.unsubscribes.forEach(unsubscribe => unsubscribe())
     commit('clearAllUnsubscribes')
-  },
-  
+  }
 }

@@ -1,25 +1,25 @@
 import firebase from 'firebase'
 export default {
-    namespaced: true,
+  namespaced: true,
   state: {
     authId: null,
     authUserUnsubscribe: null,
     authObserverUnsubscribe: null
   },
   getters: {
-    authUser: (state, getters,rootState,rootGetters) => {
+    authUser: (state, getters, rootState, rootGetters) => {
       return rootGetters['users/user'](state.authId)
     }
-  }, 
+  },
   actions: {
     initAuthentication ({ dispatch, commit, state }) {
       if (state.authObserverUnsubscribe) state.authObserverUnsubscribe()
       return new Promise((resolve) => {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
           console.log('👣 the user has changed')
-          this.dispatch('unsubscribeAuthUserSnapshot')
+          this.dispatch('auth/unsubscribeAuthUserSnapshot')
           if (user) {
-            await this.dispatch('fetchAuthUser')
+            await this.dispatch('auth/fetchAuthUser')
             resolve(user)
           } else {
             resolve(null)
@@ -30,7 +30,7 @@ export default {
     },
     async registerUserWithEmailAndPassword ({ dispatch }, { avatar = null, email, name, username, password }) {
       const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
-      await dispatch('users/createUser', { id: result.user.uid, email, name, username, avatar },{ root: true})
+      await dispatch('users/createUser', { id: result.user.uid, email, name, username, avatar }, { root: true })
     },
     signInWithEmailAndPassword (context, { email, password }) {
       return firebase.auth().signInWithEmailAndPassword(email, password)
@@ -42,7 +42,10 @@ export default {
       const userRef = firebase.firestore().collection('users').doc(user.uid)
       const userDoc = await userRef.get()
       if (!userDoc.exists) {
-        return dispatch('users/createUser', { id: user.uid, name: user.displayName, email: user.email, username: user.email, avatar: user.photoURL }, { root: true})
+        return dispatch('users/createUser',
+          { id: user.uid, name: user.displayName, email: user.email, username: user.email, avatar: user.photoURL },
+          { root: true }
+        )
       }
     },
     async signOut ({ commit }) {
@@ -60,13 +63,15 @@ export default {
         handleUnsubscribe: (unsubscribe) => {
           commit('setAuthUserUnsubscribe', unsubscribe)
         }
-      },{root: true})
+      },
+      { root: true }
+      )
       commit('setAuthId', userId)
     },
     async fetchAuthUsersPosts ({ commit, state }) {
       const posts = await firebase.firestore().collection('posts').where('userId', '==', state.authId).get()
       posts.forEach(item => {
-        commit('setItem', { resource: 'posts', item },{root: true})
+        commit('setItem', { resource: 'posts', item }, { root: true })
       })
     },
     async unsubscribeAuthUserSnapshot ({ state, commit }) {

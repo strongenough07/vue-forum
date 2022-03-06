@@ -29,4 +29,3 @@ export const makeAppendChildToParentMutation = ({ parent, child }) => {
     }
   }
 }
-
