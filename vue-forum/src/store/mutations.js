@@ -1,7 +1,7 @@
 import { upsert, findById, docToResource } from '@/helpers'
 export default {
   setItem (state, { resource, item }) {
-    upsert(state[resource], docToResource(item))
+    upsert(state[resource].items, docToResource(item))
   },
 
   appendUnsubscribe (state, { unsubscribe }) {
