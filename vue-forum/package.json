@@ -9,13 +9,14 @@
     "db:seed": "firestore:delete --all-collections --yes && node firestoreImport"
   },
   "dependencies": {
-      "chokidar": "^3.5.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^3.0.0-3",
+    "chokidar": "^3.5.3",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.4",
     "firebase": "^8.4.1",
+    "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.3",
@@ -33,7 +34,3 @@
     "not dead"
   ]
 }
-
-
-
-
