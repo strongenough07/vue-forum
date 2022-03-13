@@ -13,6 +13,10 @@
         </div>
         <hr />
         <PostList :posts="user.posts" />
+        <AppInfiniteScroll
+          @load="fetchUserPosts"
+          :done="user.posts.length === user.postsCount"
+        />
       </div>
     </div>
   </div>
@@ -23,8 +27,14 @@ import UserProfileCard from "@/components/UserProfileCard";
 import UserProfileCardEditor from "@/components/UserProfileCardEditor";
 import { mapGetters } from "vuex";
 import asyncDataStatus from "@/mixins/asyncDataStatus";
+import AppInfiniteScroll from "@/components/AppInfiniteScroll";
 export default {
-  components: { PostList, UserProfileCard, UserProfileCardEditor },
+  components: {
+    PostList,
+    UserProfileCard,
+    UserProfileCardEditor,
+    AppInfiniteScroll
+  },
   mixins: [asyncDataStatus],
   props: {
     edit: { type: Boolean, default: false }
@@ -36,11 +46,15 @@ export default {
       return this.user.posts[this.user.posts.length - 1];
     }
   },
+  methods: {
+    fetchUserPosts() {
+      this.$store.dispatch("auth/fetchAuthUsersPosts", {
+        startAfter: this.lastPostFetched
+      });
+    }
+  },
   async created() {
-    await this.$store.dispatch("auth/fetchAuthUsersPosts", {
-      startAfter: this.lastPostFetched
-    });
-
+    await this.fetchUserPosts();
     this.asyncDataStatus_fetched();
   }
 };
