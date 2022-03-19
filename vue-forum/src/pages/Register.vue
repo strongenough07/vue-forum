@@ -11,22 +11,49 @@
 
         <div class="form-group">
           <label for="username">Username</label>
-          <input v-model="form.username" id="username" type="text" class="form-input" />
+          <input
+            v-model="form.username"
+            id="username"
+            type="text"
+            class="form-input"
+          />
         </div>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input v-model="form.email" id="email" type="email" class="form-input" />
+          <input
+            v-model="form.email"
+            id="email"
+            type="email"
+            class="form-input"
+          />
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input v-model="form.password" id="password" type="password" class="form-input" />
+          <input
+            v-model="form.password"
+            id="password"
+            type="password"
+            class="form-input"
+          />
         </div>
 
         <div class="form-group">
-          <label for="avatar">Avatar</label>
-          <input v-model="form.avatar" id="avatar" type="text" class="form-input" />
+          <label for="avatar">
+            Avatar
+            <div v-if="avatarPreview">
+              <img :src="avatarPreview" class="avatar-xlarge" />
+            </div>
+          </label>
+          <input
+            v-show="!avatarPreview"
+            id="avatar"
+            type="file"
+            class="form-input"
+            @change="handleImageUpload"
+            accept="image/*"
+          />
         </div>
 
         <div class="form-actions">
@@ -43,29 +70,41 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
+      avatarPreview: null,
       form: {
-        name: '',
-        username: '',
-        email: '',
-        password: '',
-        avatar: ''
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+        avatar: ""
       }
-    }
+    };
   },
   methods: {
-    async register () {
-      await this.$store.dispatch('auth/registerUserWithEmailAndPassword', this.form)
-      this.$router.push('/')
+    async register() {
+      await this.$store.dispatch(
+        "auth/registerUserWithEmailAndPassword",
+        this.form
+      );
+      this.$router.push("/");
     },
-    async registerWithGoogle () {
-      await this.$store.dispatch('auth/signInWithGoogle')
-      this.$router.push('/')
+    async registerWithGoogle() {
+      await this.$store.dispatch("auth/signInWithGoogle");
+      this.$router.push("/");
+    },
+    handleImageUpload(e) {
+      this.form.avatar = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = event => {
+        this.avatarPreview = event.target.result;
+      };
+      reader.readAsDataURL(this.form.avatar);
     }
   },
-  created () {
-    this.$emit('ready')
+  created() {
+    this.$emit("ready");
   }
-}
+};
 </script>
