@@ -17,9 +17,9 @@ export default {
       return new Promise((resolve) => {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
           console.log('👣 the user has changed')
-          this.dispatch('auth/unsubscribeAuthUserSnapshot')
+          dispatch('unsubscribeAuthUserSnapshot')
           if (user) {
-            await this.dispatch('auth/fetchAuthUser')
+            await dispatch('fetchAuthUser')
             resolve(user)
           } else {
             resolve(null)
@@ -68,12 +68,14 @@ export default {
       )
       commit('setAuthId', userId)
     },
-    async fetchAuthUsersPosts ({ commit, state,  }, { startAfter}) {
-     
+    async fetchAuthUsersPosts ({ commit, state }, { startAfter }) {
+      // limit(10)
+      // startAfter(doc)
+      // orderBy()
       let query = await firebase.firestore().collection('posts')
-      .where('userId', '==', state.authId)
-      .orderBy('publishedAt', 'desc')
-      .limit(10)
+        .where('userId', '==', state.authId)
+        .orderBy('publishedAt', 'desc')
+        .limit(10)
       if (startAfter) {
         const doc = await firebase.firestore().collection('posts').doc(startAfter.id).get()
         query = query.startAfter(doc)

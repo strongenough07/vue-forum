@@ -8,7 +8,7 @@
 
       <div class="col-7 push-top">
         <div class="profile-header">
-          <span class="text-lead"> {{ user.username }} recent activity </span>
+          <span class="text-lead"> {{user.username}} recent activity </span>
           <a href="#">See only started threads?</a>
         </div>
         <hr />
@@ -22,40 +22,32 @@
   </div>
 </template>
 <script>
-import PostList from "@/components/PostList";
-import UserProfileCard from "@/components/UserProfileCard";
-import UserProfileCardEditor from "@/components/UserProfileCardEditor";
-import { mapGetters } from "vuex";
-import asyncDataStatus from "@/mixins/asyncDataStatus";
-import AppInfiniteScroll from "@/components/AppInfiniteScroll";
+import PostList from '@/components/PostList'
+import UserProfileCard from '@/components/UserProfileCard'
+import UserProfileCardEditor from '@/components/UserProfileCardEditor'
+import { mapGetters } from 'vuex'
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
-  components: {
-    PostList,
-    UserProfileCard,
-    UserProfileCardEditor,
-    AppInfiniteScroll
-  },
+  components: { PostList, UserProfileCard, UserProfileCardEditor },
   mixins: [asyncDataStatus],
   props: {
     edit: { type: Boolean, default: false }
   },
   computed: {
-    ...mapGetters("auth", { user: "authUser" }),
-    lastPostFetched() {
-      if (this.user.posts.length === 0) return null;
-      return this.user.posts[this.user.posts.length - 1];
+    ...mapGetters('auth', { user: 'authUser' }),
+    lastPostFetched () {
+      if (this.user.posts.length === 0) return null
+      return this.user.posts[this.user.posts.length - 1]
     }
   },
   methods: {
-    fetchUserPosts() {
-      this.$store.dispatch("auth/fetchAuthUsersPosts", {
-        startAfter: this.lastPostFetched
-      });
+    fetchUserPosts () {
+      return this.$store.dispatch('auth/fetchAuthUsersPosts', { startAfter: this.lastPostFetched })
     }
   },
-  async created() {
-    await this.fetchUserPosts();
-    this.asyncDataStatus_fetched();
+  async created () {
+    await this.fetchUserPosts()
+    this.asyncDataStatus_fetched()
   }
-};
+}
 </script>

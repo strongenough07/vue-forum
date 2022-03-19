@@ -74,13 +74,13 @@ export default {
       commit('setItem', { resource: 'posts', item: newPost }, { root: true })
       return docToResource(newThread)
     },
-    fetchThread: makeFetchItemAction({emoji: '📄', resource: 'threads'}),
-    fetchThreads: makeFetchItemsAction({emoji: '📄', resource: 'threads'}),
-    fetchThreadsByPage: ({ dispatch, commit }, {ids, page, perPage = 10}) => {
+    fetchThread: makeFetchItemAction({ emoji: '📄', resource: 'threads' }),
+    fetchThreads: makeFetchItemsAction({ emoji: '📄', resource: 'threads' }),
+    fetchThreadsByPage: ({ dispatch, commit }, { ids, page, perPage = 10 }) => {
       commit('clearThreads')
-      const chunks = chunk(ids,perPage)
+      const chunks = chunk(ids, perPage)
       const limitedIds = chunks[page - 1]
-      return dispatch('fetchThreads', {ids : limitedIds})
+      return dispatch('fetchThreads', { ids: limitedIds })
     }
   },
   mutations: {
