@@ -2,7 +2,7 @@
   <div>
     <div class="profile-card">
       <p class="text-center">
-        <img
+        <AppAvatarImg
           :src="user.avatar"
           :alt="`${user.name} profile picture`"
           class="avatar-xlarge"
@@ -34,11 +34,9 @@
     </p>
     <div class="text-center">
       <hr />
-      <router-link
-        :to="{name: 'ProfileEdit'}"
-        class="btn-green btn-small">
-          Edit Profile
-        </router-link>
+      <router-link :to="{ name: 'ProfileEdit' }" class="btn-green btn-small">
+        Edit Profile
+      </router-link>
     </div>
   </div>
 </template>
@@ -51,5 +49,5 @@ export default {
       required: true
     }
   }
-}
+};
 </script>

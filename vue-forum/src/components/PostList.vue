@@ -1,30 +1,33 @@
 <template>
   <div class="post-list">
-    <div class="post"
-         v-for="post in posts"
-         :key="post.id"
-    >
-
+    <div class="post" v-for="post in posts" :key="post.id">
       <div v-if="userById(post.userId)" class="user-info">
-        <a href="#" class="user-name">{{userById(post.userId).name}}</a>
+        <a href="#" class="user-name">{{ userById(post.userId).name }}</a>
 
         <a href="#">
-          <img class="avatar-large" :src="userById(post.userId).avatar" alt="">
+          <AppAvatarImg
+            class="avatar-large"
+            :src="userById(post.userId).avatar"
+          />
         </a>
 
-        <p class="desktop-only text-small">{{userById(post.userId).postsCount}} posts</p>
-        <p class="desktop-only text-small">{{userById(post.userId).threadsCount}} threads</p>
-
+        <p class="desktop-only text-small">
+          {{ userById(post.userId).postsCount }} posts
+        </p>
+        <p class="desktop-only text-small">
+          {{ userById(post.userId).threadsCount }} threads
+        </p>
       </div>
 
       <div class="post-content">
         <div class="col-full">
           <PostEditor
-            v-if="editing === post.id" :post="post"
+            v-if="editing === post.id"
+            :post="post"
             @save="handleUpdate"
           />
           <p v-else>
-            {{post.text}}
+            {{ post.text }}
           </p>
         </div>
         <a
@@ -43,15 +46,13 @@
         <div v-if="post.edited?.at" class="edition-info">edited</div>
         <AppDate :timestamp="post.publishedAt" />
       </div>
-
     </div>
-
   </div>
 </template>
 
 <script>
-import PostEditor from '@/components/PostEditor'
-import { mapActions } from 'vuex'
+import PostEditor from "@/components/PostEditor";
+import { mapActions } from "vuex";
 export default {
   components: { PostEditor },
   props: {
@@ -60,32 +61,30 @@ export default {
       type: Array
     }
   },
-  data () {
+  data() {
     return {
       editing: null
-    }
+    };
   },
   computed: {
-    users () {
-      return this.$store.state.users.items
+    users() {
+      return this.$store.state.users.items;
     }
   },
   methods: {
-    ...mapActions('posts', ['updatePost']),
-    userById (userId) {
-      return this.$store.getters['users/user'](userId)
+    ...mapActions("posts", ["updatePost"]),
+    userById(userId) {
+      return this.$store.getters["users/user"](userId);
     },
-    toggleEditMode (id) {
-      this.editing = id === this.editing ? null : id
+    toggleEditMode(id) {
+      this.editing = id === this.editing ? null : id;
     },
-    handleUpdate (event) {
-      this.updatePost(event.post)
-      this.editing = null
+    handleUpdate(event) {
+      this.updatePost(event.post);
+      this.editing = null;
     }
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
