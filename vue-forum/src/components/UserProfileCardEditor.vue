@@ -26,7 +26,7 @@
           />
         </label>
       </p>
-
+      <UserProfileCardEditorRandomAvatar @hit="activeUser.avatar = $event" />
       <div class="form-group">
         <input
           v-model="activeUser.username"
@@ -102,7 +102,11 @@
 
 <script>
 import { mapActions } from "vuex";
+import UserProfileCardEditorRandomAvatar from "./UserProfileCardEditorRandomAvatar.vue";
 export default {
+  components: {
+    UserProfileCardEditorRandomAvatar
+  },
   props: {
     user: {
       type: Object,
