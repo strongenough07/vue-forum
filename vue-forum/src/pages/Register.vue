@@ -4,61 +4,34 @@
       <VeeForm @submit="register" class="card card-form">
         <h1 class="text-center">Register</h1>
 
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <VeeField
-            label="Name"
-            name="name"
-            v-model="form.name"
-            id="name"
-            type="text"
-            class="form-input"
-            rules="required"
-          />
-          <VeeErrorMessage name="name" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.name"
+          name="name"
+          label="Name"
+          rules="required"
+        />
+        <AppFormField
+          v-model="form.username"
+          name="username"
+          label="Username"
+          rules="required|unique"
+        />
 
-        <div class="form-group">
-          <label for="username">Username</label>
-          <VeeField
-            label="Username"
-            name="username"
-            v-model="form.username"
-            id="username"
-            type="text"
-            class="form-input"
-            rules="required|uique:users,username"
-          />
-          <VeeErrorMessage name="username" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.email"
+          name="email"
+          label="Email"
+          rules="required|email|unique"
+          type="email"
+        />
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <VeeField
-            label="Email"
-            name="email"
-            v-model="form.email"
-            id="email"
-            type="email"
-            class="form-input"
-            rules="required|email|uique:users,email"
-          />
-          <VeeErrorMessage name="email" class="form-error" />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <VeeField
-            label="Password"
-            name="password"
-            v-model="form.password"
-            id="password"
-            type="password"
-            class="form-input"
-            rules="required|min:6"
-          />
-          <VeeErrorMessage name="password" class="form-error" />
-        </div>
+        <AppFormField
+          v-model="form.password"
+          name="password"
+          label="Password"
+          rules="required|min:8"
+          type="password"
+        />
 
         <div class="form-group">
           <label for="avatar">
