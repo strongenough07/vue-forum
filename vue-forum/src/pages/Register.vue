@@ -51,6 +51,7 @@
             id="password"
             type="password"
             class="form-input"
+            rules="required|min:6"
           />
           <VeeErrorMessage name="password" class="form-error" />
         </div>
