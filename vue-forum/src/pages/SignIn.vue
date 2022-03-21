@@ -1,16 +1,32 @@
 <template>
   <div class="flex-grid justify-center">
     <div class="col-2">
-      <form @submit.prevent="signIn" class="card card-form">
+      <VeeForm @submit="signIn" class="card card-form">
         <h1 class="text-center">Login</h1>
 
         <div class="form-group">
           <label for="email">Email</label>
-          <input v-model="form.email" id="email" type="text" class="form-input" />
+          <VeeField
+            name="email"
+            v-model="form.email"
+            id="email"
+            type="text"
+            class="form-input"
+            rules="required"
+          />
+          <VeeErrorMessage name="email" class="form-error" />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input v-model="form.password" id="password" type="password" class="form-input" />
+          <VeeField
+            name="password"
+            v-model="form.password"
+            id="password"
+            type="password"
+            class="form-input"
+            rules="required"
+          />
+          <VeeErrorMessage name="password" class="form-error" />
         </div>
 
         <div class="push-top">
@@ -18,9 +34,11 @@
         </div>
 
         <div class="form-actions text-right">
-          <router-link :to="{name: 'Register'}">Create an account?</router-link>
+          <router-link :to="{ name: 'Register' }"
+            >Create an account?</router-link
+          >
         </div>
-      </form>
+      </VeeForm>
 
       <div class="push-top text-center">
         <button @click="signInWithGoogle" class="btn-red btn-xsmall">
@@ -32,35 +50,37 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       form: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       }
-    }
+    };
   },
   methods: {
-    async signIn () {
+    async signIn() {
       try {
-        await this.$store.dispatch('auth/signInWithEmailAndPassword', { ...this.form })
-        this.successRedirect()
+        await this.$store.dispatch("auth/signInWithEmailAndPassword", {
+          ...this.form
+        });
+        this.successRedirect();
       } catch (error) {
-        alert(error.message)
+        alert(error.message);
       }
     },
-    async signInWithGoogle () {
-      await this.$store.dispatch('auth/signInWithGoogle')
-      this.successRedirect()
+    async signInWithGoogle() {
+      await this.$store.dispatch("auth/signInWithGoogle");
+      this.successRedirect();
     },
-    successRedirect () {
-      console.log('redirecting')
-      const redirectTo = this.$route.query.redirectTo || { name: 'Home' }
-      this.$router.push(redirectTo)
+    successRedirect() {
+      console.log("redirecting");
+      const redirectTo = this.$route.query.redirectTo || { name: "Home" };
+      this.$router.push(redirectTo);
     }
   },
-  created () {
-    this.$emit('ready')
+  created() {
+    this.$emit("ready");
   }
-}
+};
 </script>
