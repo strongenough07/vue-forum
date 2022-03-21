@@ -7,6 +7,7 @@
         <div class="form-group">
           <label for="name">Full Name</label>
           <VeeField
+            label="Name"
             name="name"
             v-model="form.name"
             id="name"
@@ -20,12 +21,13 @@
         <div class="form-group">
           <label for="username">Username</label>
           <VeeField
+            label="Username"
             name="username"
             v-model="form.username"
             id="username"
             type="text"
             class="form-input"
-            rules="required"
+            rules="required|uique:users,username"
           />
           <VeeErrorMessage name="username" class="form-error" />
         </div>
@@ -33,12 +35,13 @@
         <div class="form-group">
           <label for="email">Email</label>
           <VeeField
+            label="Email"
             name="email"
             v-model="form.email"
             id="email"
             type="email"
             class="form-input"
-            rules="required|email"
+            rules="required|email|uique:users,email"
           />
           <VeeErrorMessage name="email" class="form-error" />
         </div>
