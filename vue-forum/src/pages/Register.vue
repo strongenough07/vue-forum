@@ -46,6 +46,7 @@
         <div class="form-group">
           <label for="password">Password</label>
           <VeeField
+            label="Password"
             name="password"
             v-model="form.password"
             id="password"
