@@ -1,6 +1,6 @@
 <template>
   <VueFinalModal
-    v-modal="showModal"
+    v-model="showModal"
     classes="modal-container"
     content-class="modal"
   >
