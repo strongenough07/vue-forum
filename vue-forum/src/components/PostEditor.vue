@@ -2,7 +2,6 @@
   <div class="col-full">
     <VeeForm @submit="save" :key="formKey">
       <AppFormField
-        label="Text"
         as="textarea"
         name="text"
         v-model="postCopy.text"
